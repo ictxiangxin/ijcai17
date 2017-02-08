@@ -51,7 +51,7 @@ def main():
                  cate1_to_vector[row[7]] +\
                  cate2_to_vector[row[8]] +\
                  cate3_to_vector[row[9]]
-        shop_info_vector_writer.write(vector)
+        shop_info_vector_writer.write_row(vector)
 
 if __name__ == '__main__':
     main()

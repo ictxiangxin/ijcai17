@@ -17,7 +17,7 @@ def main():
     user_pay_count_writer = tool.Writer(user_pay_count_path)
     for key, count in date_count.items():
         row = list(key) + [count]
-        user_pay_count_writer.write(row)
+        user_pay_count_writer.write_row(row)
 
 if __name__ == '__main__':
     main()

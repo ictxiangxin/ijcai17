@@ -22,6 +22,12 @@ class Reader:
     def __iter__(self):
         return self.__csv_reader
 
+    def read(self):
+        data = []
+        for row in self:
+            data.append(row)
+        return data
+
 
 class Writer:
     def __init__(self, file_path):
@@ -34,8 +40,12 @@ class Writer:
         finally:
             pass
 
-    def write(self, row):
+    def write_row(self, row):
         self.__csv_writer.writerow(row)
+
+    def write(self, data):
+        for row in data:
+            self.write_row(row)
 
 
 def state(function):
@@ -44,7 +54,7 @@ def state(function):
             function_return = function(*args, **kwargs)
             end_time = time.time()
             pass_time = end_time - start_time
-            output = '{}(): {:.2f}s'.format(function.__name__, pass_time)
+            output = '{}(): {}'.format(function.__name__, time.strftime('%H:%M:%S', time.gmtime(pass_time)))
             print(output)
             return function_return
     return _state
