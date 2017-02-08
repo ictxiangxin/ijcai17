@@ -22,19 +22,19 @@ def main():
     for row in user_pay_reader:
         row_time = time.strptime(row[2], '%Y-%m-%d %H:%M:%S')
         if row_time.tm_year >= split_time.tm_year and row_time.tm_mon >= split_time.tm_mon and row_time.tm_mday >= split_time.tm_mday:
-            key = (row[1], row_time.tm_year, row_time.tm_mon, row_time.tm_mday, row_time.tm_wday)
+            key = (row[1], row_time.tm_year, row_time.tm_mon, row_time.tm_mday)
             date_count.setdefault(key, 0)
             date_count[key] += 1
         else:
             user_pay_train_writer.write_row(row)
     for key, count in date_count.items():
-        shop = key[0]
+        shop = int(key[0])
         day_pays.setdefault(shop, {d: 0 for d in range(configure.predict_days)})
         for d in range(configure.predict_days):
-            current_datetime = datetime.datetime(*key[1:4])
+            current_datetime = datetime.datetime(*key[1:])
             day_difference = (current_datetime - split_datetime).days
             if day_difference < configure.predict_days:
-                day_pays[shop][day_difference] = key[5]
+                day_pays[shop][day_difference] = count
     for shop, pays in sorted(day_pays.items()):
         row = [shop] + [p for _, p in sorted(pays.items())]
         test_writer.write_row(row)
