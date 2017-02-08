@@ -44,7 +44,7 @@ def state(function):
             function_return = function(*args, **kwargs)
             end_time = time.time()
             pass_time = end_time - start_time
-            output = '{}(): {}ms'.format(function.__name__, pass_time)
+            output = '{}(): {:.2f}s'.format(function.__name__, pass_time)
             print(output)
             return function_return
     return _state
