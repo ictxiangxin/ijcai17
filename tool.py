@@ -1,5 +1,6 @@
 import os
 import csv
+import time
 import configure
 
 
@@ -35,3 +36,15 @@ class Writer:
 
     def write(self, row):
         self.__csv_writer.writerow(row)
+
+
+def state(function):
+    def _state(*args, **kwargs):
+            start_time = time.time()
+            function_return = function(*args, **kwargs)
+            end_time = time.time()
+            pass_time = end_time - start_time
+            output = '{}(): {}ms'.format(function.__name__, pass_time)
+            print(output)
+            return function_return
+    return _state

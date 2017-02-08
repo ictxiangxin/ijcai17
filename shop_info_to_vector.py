@@ -3,7 +3,9 @@ import tool
 shop_info_path = tool.path('shop_info.txt')
 shop_info_vector_path = tool.path('shop_info_vector.txt')
 
-if __name__ == '__main__':
+
+@tool.state
+def main():
     data = []
     city_set = set()
     city_to_vector = {}
@@ -13,8 +15,8 @@ if __name__ == '__main__':
     cate2_to_vector = {}
     cate3_set = set()
     cate3_to_vector = {}
-    csv_reader = tool.Reader(shop_info_path)
-    for row in csv_reader:
+    shop_info_reader = tool.Reader(shop_info_path)
+    for row in shop_info_reader:
         if row[9] == '':
             row[9] = row[8]
         city_set.add(row[1])
@@ -42,11 +44,14 @@ if __name__ == '__main__':
         cate3_vector = [0] * cate3_sum
         cate3_vector[index] = 1
         cate3_to_vector[cate3_name] = cate3_vector
-    csv_writer = tool.Writer(shop_info_vector_path)
+    shop_info_vector_writer = tool.Writer(shop_info_vector_path)
     for row in data:
         vector = row[3:7] +\
                  city_to_vector[row[1]] +\
                  cate1_to_vector[row[7]] +\
                  cate2_to_vector[row[8]] +\
                  cate3_to_vector[row[9]]
-        csv_writer.write(vector)
+        shop_info_vector_writer.write(vector)
+
+if __name__ == '__main__':
+    main()
