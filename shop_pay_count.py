@@ -1,8 +1,8 @@
 import time
 import tool
 
-user_pay_path = tool.path('user_pay.txt')
-user_pay_count_path = tool.path('user_pay_count.txt')
+user_pay_path = tool.path('user_pay_train.txt')
+user_pay_count_path = tool.path('user_pay_count_train.txt')
 
 
 @tool.state

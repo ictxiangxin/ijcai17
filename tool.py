@@ -22,9 +22,11 @@ class Reader:
     def __iter__(self):
         return self.__csv_reader
 
-    def read(self):
+    def read(self, numeric=False):
         data = []
         for row in self:
+            if numeric:
+                row = [int(d) if d.isdigit() else d for d in row]
             data.append(row)
         return data
 
