@@ -1,15 +1,15 @@
 import tool
 import datetime
 
-shop_pay_count_train_path = tool.path('shop_pay_count_train.txt')
-shop_pay_list_train_path = tool.path('shop_pay_list_train.txt')
+shop_pay_count_train_path = tool.path('shop_pay_count.txt')
+shop_pay_list_train_path = tool.path('shop_pay_list.txt')
 
 
 @tool.state
 def main():
     shop_pay_dict = {}
-    start_date = datetime.datetime(1970, 1, 1)
-    end_date = datetime.datetime(3000, 1, 1)
+    start_date = datetime.datetime(3000, 1, 1)
+    end_date = datetime.datetime(1, 1, 1)
     shop_pay_count_reader = tool.Reader(shop_pay_count_train_path)
     for row in shop_pay_count_reader:
         shop = int(row[0])
