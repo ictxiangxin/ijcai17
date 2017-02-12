@@ -2,18 +2,11 @@ import tool
 import datetime
 import numpy
 import compute
-
-shop_pay_count_path = tool.path('shop_pay_count.txt')
-shop_pay_list_path = tool.path('shop_pay_list.txt')
-# shop_pay_count_path = tool.path('shop_pay_count_train.txt')
-# shop_pay_list_path = tool.path('shop_pay_list_train.txt')
-
-remind_days = 245
-check = True
+from workflow import Work
 
 
 @tool.state
-def main():
+def shop_pay_list(shop_pay_count_path: str, shop_pay_list_path: str, remind_days: int, check: bool=True):
     shop_pay_dict = {}
     start_date = datetime.datetime(3000, 1, 1)
     end_date = datetime.datetime(1, 1, 1)
@@ -60,7 +53,6 @@ def main():
                     if count < lower or count > upper:
                         pays[i] = median
                 week_pay_list[week] = pays
-                print("{}_{}: {} {} mean: {} median: {} std: {:.2f} a: {:.2f}".format(shop, week, pays, sorted_pays, mean, median, std, mean / std))
             pay_list = []
             for d in range(days):
                 week = (start_date + datetime.timedelta(days=d)).weekday()
@@ -68,5 +60,6 @@ def main():
         shop_pay_list_train_writer.write_row([shop] + pay_list)
 
 
-if __name__ == '__main__':
-    main()
+class ShopPayList(Work):
+    def function(self):
+        return shop_pay_list

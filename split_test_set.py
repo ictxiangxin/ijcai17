@@ -2,16 +2,11 @@ import time
 import datetime
 import tool
 import configure
-
-user_pay_path = tool.path('user_pay.txt')
-user_pay_train_path = tool.path('user_pay_train.txt')
-test_path = tool.path('test.csv')
-
-split_data = '2016-10-18'
+from workflow import Work
 
 
 @tool.state
-def main():
+def split_test_set(user_pay_path: str, user_pay_train_path: str, test_path: str, split_data: str):
     date_count = {}
     day_pays = {}
     user_pay_reader = tool.Reader(user_pay_path)
@@ -39,5 +34,7 @@ def main():
         row = [shop] + [p for _, p in sorted(pays.items())]
         test_writer.write_row(row)
 
-if __name__ == '__main__':
-    main()
+
+class SplitTestSet(Work):
+    def function(self):
+        return split_test_set
