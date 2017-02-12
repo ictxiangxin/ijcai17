@@ -15,7 +15,9 @@ def loss(real_data, test_data):
 def median(data):
     data = sorted(data)
     size = len(data)
-    if size % 2 == 0:
+    if size == 0:
+        m = 0
+    elif size % 2 == 0:
         m = (data[size // 2] + data[size // 2 - 1]) / 2
     else:
         m = data[(size - 1) // 2]
