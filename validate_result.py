@@ -3,6 +3,7 @@ import compute
 from workflow import Work
 
 
+@tool.state
 def validate_result(validate_path: str, result_path: str):
     validate_reader = tool.Reader(validate_path)
     result_reader = tool.Reader(result_path)

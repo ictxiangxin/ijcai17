@@ -171,6 +171,7 @@ class WorkFlow:
                 self.run()
 
     def run(self):
+        print('{}() Running'.format(self.__work.function().__name__))
         temp_output = self.__output
         self.__work.function()(*self.__arguments, **self.__work.arguments())
         self.__work = None
@@ -179,6 +180,7 @@ class WorkFlow:
         self.__output = None
         self.__inertness_input = None
         self.__ready = False
+        print()
         if isinstance(temp_output, Iterable):
             for item in temp_output:
                 if isinstance(item, WorkFlow):

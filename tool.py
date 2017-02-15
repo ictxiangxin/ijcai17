@@ -59,4 +59,5 @@ def state(function):
             output = '{}(): {}'.format(function.__name__, time.strftime('%H:%M:%S', time.gmtime(pass_time)))
             print(output)
             return function_return
+    _state.__name__ = function.__name__
     return _state
