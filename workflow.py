@@ -125,7 +125,7 @@ class WorkFlow:
                 if isinstance(item, WorkFlow):
                     item.passive_run()
                     workflow_input = item.input()
-                    if isinstance(workflow_input, Iterable):
+                    if isinstance(workflow_input, tuple):
                         input_list += [tool.path(t) for t in workflow_input]
                     else:
                         input_list.append(tool.path(workflow_input))
