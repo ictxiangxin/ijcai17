@@ -12,5 +12,6 @@ WorkFlow() >> 'user_pay.txt' >> ShopPayCount() >> 'shop_pay_count.txt' >> ShopPa
 WorkFlow() >> 'shop_pay_count_train.txt' >> ShopPayList(remind_days=245, check=False) >> 'shop_pay_list_train.txt'
 WorkFlow() >> 'user_pay.txt' >> SplitTestSet(split_data='2016-10-18') >> ('user_pay_train.txt', 'test.csv')
 WorkFlow() >> (WorkFlow() >> 'shop_pay_list_train.txt' >> PredictMean(train_weeks=3) >> 'mean_result_test.csv', 'test.csv') >> ValidateResult() >> None
-WorkFlow() >> (WorkFlow() >> 'shop_pay_list_train.txt' >> PredictMedian(train_weeks=3) >> 'mean_result_test.csv', 'test.csv') >> ValidateResult() >> None
+WorkFlow() >> (WorkFlow() >> 'shop_pay_list_train.txt' >> PredictMedian(train_weeks=3) >> 'median_result_test.csv', 'test.csv') >> ValidateResult() >> None
 WorkFlow() >> 'shop_pay_list.txt' >> PredictMean(train_weeks=3) >> 'mean_result.csv'
+WorkFlow() >> 'shop_pay_list.txt' >> PredictMedian(train_weeks=3) >> 'median_result.csv'
