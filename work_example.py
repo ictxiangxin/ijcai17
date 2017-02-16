@@ -6,6 +6,8 @@ from split_test_set import SplitTestSet
 from predict_median import PredictMedian
 from predict_mean import PredictMean
 from validate_result import ValidateResult
+from k_means_cluster_shop import KMeansClusterShop
+
 
 WorkFlow() >> 'shop_info.txt' >> ShopInfoToVector() >> 'shop_info_vector.txt'
 WorkFlow() >> 'user_pay.txt' >> ShopPayCount() >> 'shop_pay_count.txt' >> ShopPayList(remind_days=245) >> 'shop_pay_list.txt'
@@ -15,3 +17,4 @@ WorkFlow() >> (WorkFlow() >> 'shop_pay_list_train.txt' >> PredictMean(train_week
 WorkFlow() >> (WorkFlow() >> 'shop_pay_list_train.txt' >> PredictMedian(train_weeks=3) >> 'median_result_test.csv', 'test.csv') >> ValidateResult() >> None
 WorkFlow() >> 'shop_pay_list.txt' >> PredictMean(train_weeks=3) >> 'mean_result.csv'
 WorkFlow() >> 'shop_pay_list.txt' >> PredictMedian(train_weeks=3) >> 'median_result.csv'
+WorkFlow() >> 'shop_pay_list.txt' >> KMeansClusterShop(train_weeks=3, k=100) >> 'shop_cluster.txt'
