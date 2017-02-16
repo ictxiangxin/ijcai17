@@ -7,6 +7,7 @@ from predict_median import PredictMedian
 from predict_mean import PredictMean
 from validate_result import ValidateResult
 from k_means_cluster_shop import KMeansClusterShop
+from generate_recurrence_data import GenerateRecurrenceData
 
 
 WorkFlow() >> 'shop_info.txt' >> ShopInfoToVector(with_city=False, with_cate=True) >> 'shop_info_vector.txt'
@@ -18,3 +19,4 @@ WorkFlow() >> (WorkFlow() >> 'shop_pay_list_train.txt' >> PredictMedian(train_we
 WorkFlow() >> 'shop_pay_list.txt' >> PredictMean(train_weeks=3) >> 'mean_result.csv'
 WorkFlow() >> 'shop_pay_list.txt' >> PredictMedian(train_weeks=3) >> 'median_result.csv'
 WorkFlow() >> 'shop_pay_list.txt' >> KMeansClusterShop(train_weeks=3, k=100) >> 'shop_cluster.txt'
+WorkFlow() >> 'shop_pay_list_train.txt' >> GenerateRecurrenceData(week_window=3) >> 'train_data.txt'

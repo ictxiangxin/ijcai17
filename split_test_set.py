@@ -24,11 +24,11 @@ def split_test_set(user_pay_path: str, user_pay_train_path: str, test_path: str,
             user_pay_train_writer.write_row(row)
     for key, count in date_count.items():
         shop = int(key[0])
-        day_pays.setdefault(shop, {d: 0 for d in range(configure.predict_days)})
-        for d in range(configure.predict_days):
+        day_pays.setdefault(shop, {d: 0 for d in range(configure.predict_weeks)})
+        for d in range(configure.predict_weeks):
             current_datetime = datetime.datetime(*key[1:])
             day_difference = (current_datetime - split_datetime).days
-            if day_difference < configure.predict_days:
+            if day_difference < configure.predict_weeks:
                 day_pays[shop][day_difference] = count
     for shop, pays in sorted(day_pays.items()):
         row = [shop] + [p for _, p in sorted(pays.items())]
