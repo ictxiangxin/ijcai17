@@ -48,7 +48,7 @@ def shop_info_to_vector(input_path: str, output_path: str, with_city: bool, with
             cate3[cate3_name] = cate3_vector
     shop_info_vector_writer = tool.Writer(output_path)
     for row in data:
-        vector = row[3:7]
+        vector = [row[0]] + row[3:7]
         if with_city:
             vector += city[row[1]]
         if with_cate:
