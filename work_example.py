@@ -9,7 +9,7 @@ from validate_result import ValidateResult
 from k_means_cluster_shop import KMeansClusterShop
 
 
-WorkFlow() >> 'shop_info.txt' >> ShopInfoToVector() >> 'shop_info_vector.txt'
+WorkFlow() >> 'shop_info.txt' >> ShopInfoToVector(with_city=False, with_cate=True) >> 'shop_info_vector.txt'
 WorkFlow() >> 'user_pay.txt' >> ShopPayCount() >> 'shop_pay_count.txt' >> ShopPayList(remind_days=245) >> 'shop_pay_list.txt'
 WorkFlow() >> 'shop_pay_count_train.txt' >> ShopPayList(remind_days=245, check=False) >> 'shop_pay_list_train.txt'
 WorkFlow() >> 'user_pay.txt' >> SplitTestSet(split_data='2016-10-18') >> ('user_pay_train.txt', 'test.csv')
